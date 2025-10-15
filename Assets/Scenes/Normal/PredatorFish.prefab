@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7589758805745045080}
   - component: {fileID: 7269552399272878819}
   - component: {fileID: 8811432008499470053}
-  - component: {fileID: 8977474652392749162}
+  - component: {fileID: 3047181226233328454}
   m_Layer: 3
   m_Name: PredatorFish
   m_TagString: Untagged
@@ -144,8 +144,8 @@ MonoBehaviour:
     m_Bits: 64
   attackRange: 1.5
   catchCooldown: 2
---- !u!135 &8977474652392749162
-SphereCollider:
+--- !u!136 &3047181226233328454
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -159,9 +159,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.3947575
-  m_Center: {x: 0, y: 0, z: -0.8947575}
+  serializedVersion: 2
+  m_Radius: 1.75
+  m_Height: 8.49
+  m_Direction: 2
+  m_Center: {x: -0.05699694, y: 0.09, z: -2.4476953}

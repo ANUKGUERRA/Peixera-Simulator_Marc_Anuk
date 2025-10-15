@@ -76,12 +76,10 @@ public class NormalFish : Fish
     {
         Vector3 direction = (wanderTarget - transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * 3 * Time.deltaTime); // Faster rotation when fleeing
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * 3 * Time.deltaTime); 
 
-        // Use the increased flee speed
         rb.linearVelocity = transform.forward * fleeSpeed;
 
-        // Check if we've reached safe distance or timer expired
         if (Vector3.Distance(transform.position, wanderTarget) < 1f || fleeTimer <= 0f)
         {
             StopFleeing();
@@ -101,7 +99,6 @@ public class NormalFish : Fish
     {
         isFleeing = false;
 
-        // Reset visual feedback
         if (fishRenderer != null)
         {
             fishRenderer.material.color = normalColor;
@@ -115,7 +112,6 @@ public class NormalFish : Fish
         PredatorFish predator = collision.gameObject.GetComponent<PredatorFish>();
         if (predator != null)
         {
-            // This normal fish got caught by a predator!
             Die();
         }
     }

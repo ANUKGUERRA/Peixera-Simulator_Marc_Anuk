@@ -12,7 +12,7 @@ public class PredatorFish : Fish
     protected override void Start()
     {
         base.Start();
-        lastCatchTime = -catchCooldown; // Allow immediate attack
+        lastCatchTime = -catchCooldown;
     }
 
     protected override void Update()
@@ -42,7 +42,7 @@ public class PredatorFish : Fish
         foreach (Collider col in nearbyFish)
         {
             NormalFish prey = col.GetComponent<NormalFish>();
-            if (prey != null && !prey.IsFleeing) // Prefer non-fleeing fish
+            if (prey != null && !prey.IsFleeing) 
             {
                 float distance = Vector3.Distance(transform.position, prey.transform.position);
                 if (distance < closestDistance)
@@ -53,7 +53,6 @@ public class PredatorFish : Fish
             }
         }
 
-        // If no non-fleeing fish, target any fish
         if (closestPrey == null)
         {
             foreach (Collider col in nearbyFish)
@@ -92,7 +91,6 @@ public class PredatorFish : Fish
 
         rb.linearVelocity = transform.forward * chaseSpeed;
 
-        // Check if target is out of range
         float distanceToTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
         if (distanceToTarget > detectionRadius * 1.5f)
         {
@@ -109,7 +107,6 @@ public class PredatorFish : Fish
 
         if (distanceToTarget <= attackRange && Time.time >= lastCatchTime + catchCooldown)
         {
-            // Try to catch the fish
             CatchFish();
         }
     }
@@ -123,7 +120,6 @@ public class PredatorFish : Fish
             isChasing = false;
             currentTarget = null;
 
-            // Take a short break after catching
             GenerateWanderTarget();
         }
     }
@@ -133,7 +129,6 @@ public class PredatorFish : Fish
         NormalFish normalFish = collision.gameObject.GetComponent<NormalFish>();
         if (normalFish != null && Time.time >= lastCatchTime + catchCooldown)
         {
-            // Direct collision catch
             normalFish.Die();
             lastCatchTime = Time.time;
             isChasing = false;

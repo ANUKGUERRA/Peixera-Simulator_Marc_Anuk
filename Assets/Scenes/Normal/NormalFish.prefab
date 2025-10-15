@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9047384427227217257}
   - component: {fileID: 327019999683863357}
   - component: {fileID: 629958732347512938}
-  - component: {fileID: 7642051041136574873}
+  - component: {fileID: 3254429791557227637}
   m_Layer: 6
   m_Name: NormalFish
   m_TagString: Untagged
@@ -143,8 +143,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   safeDistance: 8
---- !u!135 &7642051041136574873
-SphereCollider:
+  fleeDuration: 3
+  fishRenderer: {fileID: 0}
+  normalColor: {r: 0, g: 0, b: 1, a: 1}
+  fleeColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!136 &3254429791557227637
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -158,9 +162,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.0634112
-  m_Center: {x: 0, y: 0, z: -0.56341124}
+  serializedVersion: 2
+  m_Radius: 1.05
+  m_Height: 3.21
+  m_Direction: 2
+  m_Center: {x: -0.105878174, y: 0.059931755, z: -0.61981905}
