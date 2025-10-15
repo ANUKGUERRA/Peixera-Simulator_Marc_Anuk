@@ -121,14 +121,17 @@ public abstract class Fish : MonoBehaviour
 
         if (needsAvoidance)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(avoidanceForce.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * 4 * Time.deltaTime);
+            Vector3 avoidanceDirection = avoidanceForce.normalized;
 
-            rb.linearVelocity *= 0.5f;
+            Vector3 desiredDirection = Vector3.Lerp(transform.forward, avoidanceDirection, 0.1f).normalized;
 
-            GenerateWanderTarget();
+            Quaternion targetRotation = Quaternion.LookRotation(desiredDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, desiredDirection * wanderSpeed, 0.1f);
         }
     }
+
 
     protected Collider[] GetNearbyFish()
     {
