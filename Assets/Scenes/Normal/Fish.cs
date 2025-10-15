@@ -1,11 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public abstract class Fish : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float wanderSpeed = 2f;
     public float chaseSpeed = 4f;
-    public float fleeSpeed = 5f;
+    public float fleeSpeed = 6f; // Increased flee speed
     public float rotationSpeed = 2f;
     public float wanderRadius = 3f;
     public float wanderDistance = 5f;
@@ -20,6 +21,8 @@ public abstract class Fish : MonoBehaviour
     protected FishTank tank;
     protected bool isFleeing = false;
     protected bool isChasing = false;
+
+    public bool IsFleeing { get { return isFleeing; } }
 
     protected virtual void Start()
     {
@@ -100,5 +103,15 @@ public abstract class Fish : MonoBehaviour
     protected Collider[] GetNearbyFish()
     {
         return Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
+    }
+
+    // Virtual method to handle death
+    public virtual void Die()
+    {
+        if (tank != null)
+        {
+            tank.RemoveFishFromList(gameObject);
+        }
+        Destroy(gameObject);
     }
 }

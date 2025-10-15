@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7269552399272878819}
   - component: {fileID: 8811432008499470053}
   - component: {fileID: 8977474652392749162}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: PredatorFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +142,8 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 64
+  attackRange: 1.5
+  catchCooldown: 2
 --- !u!135 &8977474652392749162
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -112,6 +112,20 @@ public class FishTank : MonoBehaviour
         }
     }
 
+    // Public method to remove fish when they die
+    public void RemoveFishFromList(GameObject fish)
+    {
+        if (normalFishes.Contains(fish))
+        {
+            normalFishes.Remove(fish);
+        }
+        else if (predatorFishes.Contains(fish))
+        {
+            predatorFishes.Remove(fish);
+        }
+        UpdateFishCountText();
+    }
+
     private Vector3 GetRandomPositionInTank()
     {
         return new Vector3(
