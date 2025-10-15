@@ -38,7 +38,6 @@ public abstract class Fish : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Clamp position every physics update to ensure fish never escape
         if (tank != null)
         {
             transform.position = tank.ClampPosition(transform.position);
@@ -57,7 +56,6 @@ public abstract class Fish : MonoBehaviour
         wanderTarget += Vector3.forward * wanderDistance;
         wanderTarget = transform.TransformPoint(wanderTarget);
 
-        // Clamp wander target to stay within tank
         if (tank != null)
         {
             wanderTarget = tank.ClampPosition(wanderTarget);
@@ -84,12 +82,10 @@ public abstract class Fish : MonoBehaviour
         Vector3 tankSize = tank.GetTankSize();
         Vector3 currentPos = transform.position;
 
-        // Increased safe distance for earlier avoidance
         float safeDistance = 2f;
         Vector3 avoidanceForce = Vector3.zero;
         bool needsAvoidance = false;
 
-        // Check each wall and add avoidance force
         if (currentPos.x < -tankSize.x / 2 + safeDistance)
         {
             avoidanceForce.x = 1f;
@@ -125,24 +121,23 @@ public abstract class Fish : MonoBehaviour
 
         if (needsAvoidance)
         {
-            // Apply stronger rotation when near walls
-            Quaternion targetRotation = Quaternion.LookRotation(avoidanceForce.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * 4 * Time.deltaTime);
+            Vector3 avoidanceDirection = avoidanceForce.normalized;
 
-            // Reduce velocity when near walls
-            rb.linearVelocity *= 0.5f;
+            Vector3 desiredDirection = Vector3.Lerp(transform.forward, avoidanceDirection, 0.1f).normalized;
 
-            // Generate new wander target away from wall
-            GenerateWanderTarget();
+            Quaternion targetRotation = Quaternion.LookRotation(desiredDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, desiredDirection * wanderSpeed, 0.1f);
         }
     }
+
 
     protected Collider[] GetNearbyFish()
     {
         return Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
     }
 
-    // Virtual method to handle death
     public virtual void Die()
     {
         if (tank != null)
