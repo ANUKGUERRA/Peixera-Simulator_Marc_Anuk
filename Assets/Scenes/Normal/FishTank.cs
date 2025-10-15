@@ -27,12 +27,10 @@ public class FishTank : MonoBehaviour
 
     private void Start()
     {
-        // Setup UI
         normalFishInput.text = initialNormalFish.ToString();
         predatorFishInput.text = initialPredatorFish.ToString();
         updateButton.onClick.AddListener(UpdateFishCount);
 
-        // Initial spawn
         SpawnInitialFish();
         UpdateFishCountText();
     }
@@ -55,7 +53,6 @@ public class FishTank : MonoBehaviour
         int targetNormalCount = int.Parse(normalFishInput.text);
         int targetPredatorCount = int.Parse(predatorFishInput.text);
 
-        // Update normal fish count
         while (normalFishes.Count < targetNormalCount)
         {
             SpawnNormalFish();
@@ -65,7 +62,6 @@ public class FishTank : MonoBehaviour
             RemoveNormalFish();
         }
 
-        // Update predator fish count
         while (predatorFishes.Count < targetPredatorCount)
         {
             SpawnPredatorFish();
@@ -112,7 +108,6 @@ public class FishTank : MonoBehaviour
         }
     }
 
-    // Public method to remove fish when they die
     public void RemoveFishFromList(GameObject fish)
     {
         if (normalFishes.Contains(fish))
